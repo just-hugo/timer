@@ -32,15 +32,13 @@ body {
 }
 
 .controls button {
-  font-size: 1.2rem;
-  padding: 10px 20px;
-  margin: 10px;
+  font-size: 1.5rem;
+  padding: 5px 5px;
+  margin: 5px;
   background-color: transparent;
   color: #7f7f7f;
-  border-radius: 10px;
-  border-color: #373737;
-  border-width: 1px;
-  border-style: solid;
+  border-style: none;
+  vertical-align: middle;
 }
 
 .options {
@@ -64,4 +62,11 @@ button:disabled {
   border-width: 1px;
   border-style: solid;
   cursor: not-allowed;
+}
+#resetButton {
+  font-size: 1.1rem;
+  font-weight: 550;
+  padding: 10px 7px;
+  margin: 5px;
+  border: none;
 }
