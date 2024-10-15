@@ -13,6 +13,7 @@ body {
   justify-content: center;
   align-items: center;
   background-color: #191919;
+  vertical-align: middle;
 }
 
 .container {
@@ -20,9 +21,6 @@ body {
   text-align: center;
   background-color: #191919;
   padding: 20px;
-  border-radius: 10px;
-  border-color: #373737;
-  border-width: 1px;
   border-style: none;
 }
 
@@ -43,13 +41,14 @@ body {
 
 .options {
   margin-bottom: 20px;
+  vertical-align: middle;
+  margin-left: 10px;
 }
 
 .options label {
-  font-size: 1rem;
-  margin-right: 20px;
+  font-size: 0.9rem;
+  margin-right: 5px;
 }
-
 button {
   cursor: pointer;
 }
