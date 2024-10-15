@@ -1,0 +1,156 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Timer App</title>
+    <link rel="stylesheet" href="timer.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div id="timerDisplay">00:00</div>
+
+      <div class="options">
+        <label>
+          <input type="radio" name="timerOption" value="interval" checked />
+          Interval
+        </label>
+        <label>
+          <input type="radio" name="timerOption" value="focus" />
+          Focus
+        </label>
+      </div>
+
+      <div class="controls">
+        <button id="playStopButton">Play</button>
+        <button id="resetButton" disabled>Reset</button>
+        <!-- Added Reset Button -->
+      </div>
+    </div>
+    <script>
+      // script.js
+
+      let timer;
+      let isRunning = false;
+      let timeRemaining = 900; // 15 minutes in seconds for Interval mode
+      let elapsedTime = 0; // To track time for Focus Time mode
+
+      const timerDisplay = document.getElementById("timerDisplay");
+      const playStopButton = document.getElementById("playStopButton");
+      const resetButton = document.getElementById("resetButton");
+      const timerOptions = document.getElementsByName("timerOption");
+
+      // Set initial button text to Play (▶) when the page loads
+      playStopButton.textContent = "\u25B6"; // Play button (▶)
+
+      let mode = "interval"; // Default mode is Interval (15 minutes)
+
+      // Function to update the display
+      function updateTimerDisplay(time) {
+        const minutes = Math.floor(time / 60);
+        const seconds = time % 60;
+        timerDisplay.textContent = `${String(minutes).padStart(
+          2,
+          "0"
+        )}:${String(seconds).padStart(2, "0")}`;
+      }
+
+      function startTimer() {
+        isRunning = true;
+        playStopButton.textContent = "\u23F9"; // Change to Stop button (⏹)
+        resetButton.disabled = false; // Enable the reset button
+
+        const selectedMode = [...timerOptions].find(
+          (option) => option.checked
+        ).value;
+
+        if (selectedMode === "interval") {
+          mode = "interval";
+          timer = setInterval(() => {
+            if (timeRemaining > 0) {
+              timeRemaining--;
+              updateTimerDisplay(timeRemaining);
+            } else {
+              stopTimer();
+              alert("Time is up!"); // Play an alarm when timer hits zero
+            }
+          }, 1000);
+        } else if (selectedMode === "focus") {
+          mode = "focus";
+          timer = setInterval(() => {
+            elapsedTime++;
+            updateTimerDisplay(elapsedTime);
+          }, 1000);
+        }
+      }
+
+      function stopTimer() {
+        isRunning = false;
+        playStopButton.textContent = "\u25B6"; // Change to Play button (▶)
+        clearInterval(timer);
+        if (mode === "focus") {
+          alert(
+            `Focus Time: You worked for ${Math.floor(
+              elapsedTime / 60
+            )} minutes and ${elapsedTime % 60} seconds.`
+          );
+        }
+      }
+
+      // Function to reset the timer
+      function resetTimer() {
+        clearInterval(timer);
+        isRunning = false;
+        playStopButton.textContent = "Play"; // Reset button to "Play"
+        resetButton.disabled = true; // Disable reset button when reset is clicked
+
+        // Reset display based on selected mode
+        if (mode === "interval") {
+          timeRemaining = 900; // Reset to 15 minutes for Interval
+          updateTimerDisplay(timeRemaining);
+        } else if (mode === "focus") {
+          elapsedTime = 0; // Reset to 0 for Focus Time
+          updateTimerDisplay(elapsedTime);
+        }
+      }
+
+      // Update display based on mode change
+      function handleModeChange() {
+        const selectedMode = [...timerOptions].find(
+          (option) => option.checked
+        ).value;
+
+        if (selectedMode === "interval") {
+          mode = "interval";
+          timeRemaining = 900; // 15 minutes for Interval mode
+          updateTimerDisplay(timeRemaining); // Display 15:00 when switching to Interval
+        } else if (selectedMode === "focus") {
+          mode = "focus";
+          elapsedTime = 0; // Reset to 0 for Focus Time mode
+          updateTimerDisplay(elapsedTime); // Display 00:00 when switching to Focus Time
+        }
+      }
+
+      // Add event listeners to the radio buttons to update display on mode switch
+      timerOptions.forEach((option) => {
+        option.addEventListener("change", handleModeChange);
+      });
+
+      // Button click handler for play/stop
+      playStopButton.addEventListener("click", () => {
+        if (isRunning) {
+          stopTimer();
+        } else {
+          startTimer();
+        }
+      });
+
+      // Button click handler for reset
+      resetButton.addEventListener("click", resetTimer);
+
+      // Initialize display (start with Interval time)
+      updateTimerDisplay(900);
+    </script>
+  </body>
+</html>
