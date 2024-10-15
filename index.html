@@ -23,6 +23,8 @@
       </div>
 
       <div class="controls">
+        <audio id="alarmSound" src="alarm.mp3" preload="auto"></audio>
+
         <button id="playStopButton">Play</button>
         <button id="resetButton" disabled>Reset</button>
         <!-- Added Reset Button -->
@@ -56,6 +58,9 @@
         )}:${String(seconds).padStart(2, "0")}`;
       }
 
+      // Get the audio element
+      const alarmSound = document.getElementById("alarmSound");
+
       function startTimer() {
         isRunning = true;
         playStopButton.textContent = "\u23F9"; // Change to Stop button (⏹)
@@ -67,13 +72,14 @@
 
         if (selectedMode === "interval") {
           mode = "interval";
+          timeRemaining = 15 * 60; // Set timer to 15 minutes in seconds
           timer = setInterval(() => {
             if (timeRemaining > 0) {
               timeRemaining--;
               updateTimerDisplay(timeRemaining);
             } else {
               stopTimer();
-              alert("Time is up!"); // Play an alarm when timer hits zero
+              alarmSound.play(); // Play the alarm sound when timer hits zero
             }
           }, 1000);
         } else if (selectedMode === "focus") {
