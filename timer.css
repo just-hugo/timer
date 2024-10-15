@@ -23,7 +23,7 @@ body {
   border-radius: 10px;
   border-color: #373737;
   border-width: 1px;
-  border-style: solid;
+  border-style: none;
 }
 
 #timerDisplay {
