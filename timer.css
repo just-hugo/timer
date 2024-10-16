@@ -13,12 +13,10 @@ body {
   justify-content: center;
   align-items: center;
   background-color: #191919;
-  vertical-align: middle;
 }
 
 .container {
   color: #7f7f7f;
-  text-align: center;
   background-color: #191919;
   padding: 20px;
   border-style: none;
@@ -28,7 +26,6 @@ body {
   font-size: 4rem;
   margin-bottom: 20px;
 }
-
 .controls button {
   font-size: 1.5rem;
   padding: 5px 5px;
@@ -40,14 +37,14 @@ body {
 }
 
 .options {
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   vertical-align: middle;
   margin-left: 10px;
 }
 
 .options label {
   font-size: 0.9rem;
-  margin-right: 5px;
+  margin-right: 15px;
 }
 button {
   cursor: pointer;
@@ -56,16 +53,12 @@ button {
 button:disabled {
   background-color: transparent;
   color: #373737;
-  border-radius: 10px;
-  border-color: #373737;
-  border-width: 1px;
-  border-style: solid;
+  border-style: none;
   cursor: not-allowed;
 }
 #resetButton {
-  font-size: 1.1rem;
-  font-weight: 550;
-  padding: 10px 7px;
-  margin: 5px;
-  border: none;
+  /* padding: 10px 45px;
+  margin: 5px; */
+  font-size: 2.7rem;
+  margin-bottom: 0.7rem;
 }
