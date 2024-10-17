@@ -4,26 +4,46 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Simple Timer App</title>
+    <title>Time Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sarpanch:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
     <link rel="stylesheet" href="timer.css" />
   </head>
   <body>
     <div class="container">
-      <div id="timerDisplay">00:00</div>
+      <div class="sarpanch" id="timerDisplay">00:00</div>
+      <hr />
 
-      <div class="options">
+      <div class="options sarpanch">
         <label>
           <input
             type="radio"
             name="timerOption"
             value="interval"
             id="interval"
+            onclick="playToggle()"
             checked
           />
           Interval
         </label>
         <label>
-          <input type="radio" name="timerOption" value="focus" id="focus" />
+          <input
+            type="radio"
+            name="timerOption"
+            value="focus"
+            id="focus"
+            onclick="playToggle()"
+          />
           Focus
         </label>
       </div>
@@ -31,9 +51,11 @@
       <div class="controls">
         <audio id="alarmSound" src="alarm.wav" preload="auto"></audio>
         <audio id="activateSound" src="start.wav" preload="auto"></audio>
+        <audio id="toggleSound" src="toggle.wav" preload="auto"></audio>
+        <audio id="resetSound" src="reset.wav" preload="auto"></audio>
 
         <button id="playStopButton">Play</button>
-        <button id="resetButton" disabled>Reset</button>
+        <button id="resetButton" onclick="playReset()" disabled>Reset</button>
         <!-- Added Reset Button -->
       </div>
     </div>
@@ -53,6 +75,7 @@
       // Set initial button text to Play (▶) when the page loads
       playStopButton.textContent = "\u25B6"; // Play button (▶)
       resetButton.textContent = "\u21BA";
+
       let mode = "interval"; // Default mode is Interval (15 minutes)
 
       // Function to update the display
@@ -68,6 +91,15 @@
       // Get the audio element
       const alarmSound = document.getElementById("alarmSound");
       const activateSound = document.getElementById("activateSound");
+      const toggleSound = document.getElementById("toggleSound");
+      const resetSound = document.getElementById("resetSound");
+
+      function playToggle() {
+        toggleSound.play();
+      }
+      function playReset() {
+        resetSound.play();
+      }
 
       function startTimer() {
         isRunning = true;
